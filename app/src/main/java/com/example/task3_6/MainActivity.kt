@@ -22,8 +22,10 @@ class MainActivity : AppCompatActivity() {
         showResult.text = "$randomNumber" // I keep it for testing
         button.setOnClickListener {
             val getNumber = inputText.editText?.text
+            var numeric: Boolean
+            numeric = getNumber.toString().matches("\\d+(\\d+)?".toRegex())
                     numberOfClicks++
-            tmpValue = if (getNumber.isNullOrEmpty()) {
+            tmpValue = if (getNumber.isNullOrEmpty() || !numeric) {
                 -1
             } else {
                 getNumber.toString().toInt()
@@ -32,13 +34,13 @@ class MainActivity : AppCompatActivity() {
                 newScreenIntent(numberOfClicks, randomNumber, "#ed1c43","You lost after" )
             } else
                     if(tmpValue > randomNumber && numberOfClicks <= limit ) {
-                    showResult.text = "No, my number is smaller  $numberOfClicks"
+                    showResult.text = "No, my number is smaller"
                 }
                 else if(tmpValue < randomNumber && numberOfClicks <= limit) {
-                    showResult.text = "No, my number is bigger $numberOfClicks"
+                    showResult.text = "No, my number is bigger"
                 }
                 else if (tmpValue == randomNumber && numberOfClicks <= limit){
-                    showResult.text = " $numberOfClicks No, my number is bigger   $numberOfClicks"
+//                    showResult.text = " $numberOfClicks No, my number is bigger   $numberOfClicks"
                     newScreenIntent(numberOfClicks, randomNumber, "#22b162","You won after" )
                 }
         }
